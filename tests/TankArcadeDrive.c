@@ -14,10 +14,16 @@
 //int gain=5;
 /*move forward funtion*/
 int x =0;
-int diameter=4;
-float pi = 3.14;
-float ticksPerInches = 1440/diameter * pi;
-float instruction [25][2];
+int track = 17;
+double halfTrack = 8.5;
+double radius = 1.94;
+float diameter=3.88;
+float pi = 3.1415;
+float circumference = diameter * pi;
+float ticksPerInches = 1440/circumference;
+float inchesPerTicks = circumference/1440;
+float instructions [25][2];
+int nTicks=0;
 
 
 void forward (int speed)
@@ -95,28 +101,44 @@ void setMotorSpeed(float leftSide, float rightSide){
 	motor[backright]=rightSide;
 	}
 float getDegrees(int nTicks){
+	float degree = radius * nTicks/halfTrack
+	return degree;
 }
 float getFeet(int nTicks){
+	float inches;
+		inches = nTicks*inchesPerTicks;
+		return inches/12;
+}
+void printVals(){
+	for(int i=0; i <25; i++){
+			writeDebugStream("Value %d", i);
+			writeDebugStream(": Index: %d", instructions[i][0]);
+			writeDebugStream("Distance(Degrees or Feet): %d", intstruction[i][1]);
+			writeDebugStreamLine(" ");
+	}
 }
 void storeVals(int i){
 	if (joy1Btn(0)){
-		nticks = getnticks();
+		nticks = nMotorEncoder[backLeft];
 		instructions [i] [0] = 1;
 		//nticks = 0;
 		//return i;
 	}else if (joy1Btn(7)){
-		nticks = getnticks();
+		nticks = nMotorEncoder[backLeft];
 		instructions [i] [0] = 2;
 		//nticks = 0;
 		//return i;
 	}else if (joy1Btn(1)){
 		//nticks = getnticks();
 		if(instructions[i][0]==1){
-			instructions [i] [1] = getFeet();
+			instructions [i] [1] = getFeet(nTicks);
 		}else if(instructions[i][0]==2){
-			instructions [i] [1] = getDegrees();
-			x++;
+			instructions [i] [1] = getDegrees(nTicks);
+			//x++;
 		}
+		x++;
+		nMotorEncoder[backLeft]=0;
+		nTicks=0;
 		//nticks = 0;
 	}
 
@@ -145,28 +167,24 @@ void arcadeDrive(float throttle, float turn)
 		motor[backRight] = ((-100.0)*(rightSpeed/127.0)*(rightSpeed/127.0)*(rightSpeed/127.0));
 
 		//while(true){
-
-		storeVals(x);
+		if(x<26){
+			storeVals(x);
+	 	}
 
 	}
+
 /*void arcadeDrive1(float throttle, float turn)
 	{
-		float rightSpeed,leftSpeed,total;
+		float rightSpeed,leftSpeed,total,excess;
+
 		total = throttle + turn;
-		excess = total - 1
-		if excess < 0{
-			excess = 0;
-		}
-		float reduce (power){
-			if power > 1{
-				return 1;
-			}
-		}
-		if (throttle >= 0.05 and turn > 0){
+
+		d
+		if (throttle >= 0.05 and turn > 0) {
 			leftSpeed= reduce(throttle + turn);
 			rightSpeed= -excess;
 		}
-		else if(throttle < -0.05){
+		else if (throttle <= -0.05) {
 			leftSpeed= reduce(throttle - turn);
 			rightSpeed= reduce(throttle + turn);
 		}
@@ -179,6 +197,10 @@ task main()
 {
 	while (true){
 	 	arcadeDrive(joystick.joy1_y1, joystick.joy1_x2);
+	 	if(x>25 && x!=27){
+	 		printVals();
+	 		x++;
+	 	}
 		//tankDrive();
 	}
 }
