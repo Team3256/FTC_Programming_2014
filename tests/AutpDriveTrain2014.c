@@ -92,7 +92,7 @@ void moveFoward(float feet, float motorSpeed)
 		nMotorEncoder[backLeftMotor] = 0;
 		float nTicks = abs((degreesMoved*halfTrack)/(wheelRadius));
 		//nticks= nticks* 1.3 * 5/ 9;
-		while(abs(nMotorEncoder[backLeftMotor]) < nTicks*7.2)
+		while(abs(nMotorEncoder[backLeftMotor]) < nTicks*6.8)
 	{
 			motor[frontRightMotor] = motorSpeed;
 			motor[frontLeftMotor] = motorSpeed;
@@ -105,7 +105,7 @@ void moveFoward(float feet, float motorSpeed)
 		nMotorEncoder[backLeftMotor] = 0;
 		float nTicks = abs((degreesMoved*halfTrack)/(wheelRadius));
 		//nticks= nticks* 1.3 * 5/ 9;
-		while(abs(nMotorEncoder[backLeftMotor]) < nTicks*7.2)
+		while(abs(nMotorEncoder[backLeftMotor]) < nTicks*6.8)
 	{
 			motor[frontRightMotor] = -motorSpeed;
 			motor[frontLeftMotor] = -motorSpeed;
@@ -114,38 +114,76 @@ void moveFoward(float feet, float motorSpeed)
 	}
 }
 	void knockPole (int position){//position 1,2,or 3
-			if(position==1){
-				int nfeet=32.0/12.0;
-				moveFoward(3.5, 75);
+			if(position==3){
+				int nfeet=47.0/12.0;
+				moveFoward(nfeet, 100);
+			  wait1Msec(1.0);
+			 	rightTwoWheelTurn(85, 100);
+			 	wait1Msec(0.5);
+			 	nfeet=40.0/12.0;
+			 	moveFoward(nfeet, 100);
+			 	/*wait1Msec(0.5);
+			 	moveForward(2.0/12.0, 100);
+			  /*wait1Msec(.5);
+				moveFoward(2, 75);
 				wait1Msec(0.5);
-				leftTwoWheelTurn(90.0, 75);
+				leftTwoWheelTurn(9.0, 75);
+				wait1Msec(.5);
+				moveFoward(.68, 125);
+				wait1Msec(.5);
+				leftTwoWheelTurn(58.0, 80);
+				wait1Msec(.5);
+				moveFoward(.9, 125);*/
 			}else if(position ==2){
-				moveFoward(32.0/12.0, 50);
+				moveFoward(20.0/12.0, 75);
 				//moveFoward(0,0);
+				wait1Msec(1);
+				rightTwoWheelTurn(50.0, 85);
+				wait1Msec(1);
+				moveFoward(36.0/12.0, 150);
 				wait1Msec(0.5);
-				rightTwoWheelTurn(12.0, 50);
-				wait1Msec(0.5);
-				moveFoward(15.0/12.0, 50);
-				wait1Msec(0.5);
-			}else if(position ==3 ){
-				moveFoward(24.0/12.0, 50);
-				wait1Msec(0.5);
-			  rightTwoWheelTurn(20.0, 50);
+			}else if(position ==1 ){
+				moveFoward(18.0/12.0, 75);
+				wait1Msec(1);
+			  rightTwoWheelTurn(90.0, 85);
 			  wait1Msec(0.5);
-				moveFoward(12.0/12.0, 50);
+				moveFoward(34.0/12.0, 50);
+				wait1Msec(1);
+				leftTwoWheelTurn(71, 85);
 				wait1Msec(0.5);
-				leftTwoWheelTurn(15.0, 50);
-				wait1Msec(0.5);
-				moveFoward(12.0/12.0, 50);
+				moveFoward(48.0/12.0, 100);
 				wait1Msec(0.5);
 			}
 		}
 
+			void driveDownRamp(){
+				moveFoward(55/12, 73);
+				wait1Msec(.5)
+				leftTwoWheelTurn(90, 100);
+				//moveFoward(30/12, 70);
+		}
+
+		 void kickstandFromRamp(){
+		   driveDownRamp();
 
 
-	task main(){
+	}
+
+
+
+
+
+task main(){
 	  	//int nfeet=55.0/12.0;
 			//moveFoward(3.0, 50);
-			//leftTwoWheelTurn(90,75)
-			knockPole(1);
-	 }
+			//leftTwoWheelTurn(90,100);
+		//knockPole(1);
+			//rightTwoWheelTurn(90.0,100);
+
+     //knockPole(irSeekerV2());
+     kickstandFromRamp();
+
+	}
+
+
+
