@@ -205,6 +205,6 @@ task main()
 	 		printVals();
 	 		x++;
 	 	}*/
-		tankDrive();
+		arcadeDrive(joystick.joy1_y2,joystick.joy1_y1);
 	}
 }

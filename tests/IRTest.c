@@ -17,11 +17,28 @@ int irSeekerV2(){
 		}
 }
 
-task main(){
-
-	while(true){
+int irSeekerV2AfterRamp(){
 		int sensorVal= SensorValue[irSensor];
-		writeDebugStreamLine("%d", sensorVal);
+		//IR Sensor turned 22 degrees to the right
+		if(sensorVal <= 3){
+			//writeDebugStreamLine("3rd position");
+		  return 3;
+		}
+		else if(sensorVal == 0){
+				//writeDebugStreamLine("2nd position");
+			  return 1;
+		}
+		//else{
+		//writeDebugStreamLine("1st position");
+			//return 1;
+		//}
+}
 
-}
-}
+//task main(){
+
+	//while(true){
+		//irSeekerV2AfterRamp();
+		//int sensorVal= SensorValue[irSensor];
+	//	writeDebugStreamLine("%d", sensorVal);
+
+//}
