@@ -24,9 +24,9 @@ void tankDrive()
 			motor[backLeftMotor] = ((-100.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0));
 	}
 
-task main()
-{
-while(true){
-	tankDrive();
-}
+task main(){
+		waitForStart();
+		while(true){
+			tankDrive();
+		}
 }
