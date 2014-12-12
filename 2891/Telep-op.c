@@ -23,6 +23,19 @@ void tankDrive()
 		motor[frontLeftMotor] = ((-100.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0));
 			motor[backLeftMotor] = ((-100.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0)*(joystick.joy1_y1/127.0));
 	}
+void intakeBalls()
+	{
+		if (joy1Btn(8) || joy1Btn(6))
+		{
+			motor[ballIntake] = 100;
+		}
+	}
+void moveLift()
+	{
+		motor[liftMotor] = joystick.joy2_y2 * 100;
+	}
+
+
 
 task main(){
 		waitForStart();
